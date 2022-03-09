@@ -104,7 +104,7 @@ func UpdateEntity(w http.ResponseWriter, r *http.Request) {
 				}
 				log.Println(resourceMap)
 
-				if err := json.NewEncoder(w).Encode(t); err != nil {
+				if err := json.NewEncoder(w).Encode(resourceMap); err != nil {
 					http.Error(w, err.Error(), http.StatusInternalServerError)
 					return
 				}
