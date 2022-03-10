@@ -27,7 +27,6 @@ func CreateEntity(w http.ResponseWriter, r *http.Request) {
 	}
 	t["id"] = nextId
 	log.Println("Adding Entity")
-	log.Println(t)
 
 	if resourcesMap, ok := data[entity]; !ok {
 		data[entity] = make(map[int]map[string]interface{})
@@ -36,7 +35,7 @@ func CreateEntity(w http.ResponseWriter, r *http.Request) {
 		resourcesMap[nextId] = t
 	}
 
-	if err := json.NewEncoder(w).Encode(t); err != nil {
+	if err := json.NewEncoder(w).Encode(data[entity][nextId]); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -102,9 +101,8 @@ func UpdateEntity(w http.ResponseWriter, r *http.Request) {
 				for k, v := range t {
 					resourceMap[k] = v
 				}
-				log.Println(resourceMap)
 
-				if err := json.NewEncoder(w).Encode(resourceMap); err != nil {
+				if err := json.NewEncoder(w).Encode(data[entity][id]); err != nil {
 					http.Error(w, err.Error(), http.StatusInternalServerError)
 					return
 				}
