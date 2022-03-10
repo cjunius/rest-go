@@ -1,6 +1,5 @@
 package controllers
 
-/* global variables */
 var data = make(map[string][]map[string]interface{})
 var nextId = 1
 
@@ -44,7 +43,7 @@ func UpdateEntityData(entityType string, id int, entity map[string]interface{}) 
 		for i := range entities {
 			if entities[i]["id"] == id {
 
-				for k, _ := range entity {
+				for k := range entity {
 					entities[i][k] = entity[k]
 					entities[i]["id"] = id
 				}
