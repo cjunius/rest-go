@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  analyze:
+  Security_Scan:
     name: Analyze
     runs-on: ubuntu-latest
     permissions:
@@ -56,7 +56,7 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
 
-  build:
+  Build_Test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
