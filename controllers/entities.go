@@ -35,6 +35,29 @@ func GetEntityData(entityType string, id int) (map[string]interface{}, APIError)
 	}
 }
 
+func ReplaceEntityData(entityType string, id int, entity map[string]interface{}) (map[string]interface{}, APIError) {
+	if oldEntity, err := GetEntityData(entityType, id); err != nil {
+		return nil, err
+	} else {
+
+		if entities, err := GetEntitiesData(entityType); err != nil {
+			return nil, err
+		} else {
+			for i := range entities {
+
+				if entities[i]["id"] == oldEntity["id"] {
+					entity["id"] = oldEntity["id"]
+					entities[i] = entity
+					return GetEntityData(entityType, id)
+				}
+
+			}
+			return nil, ErrEntityNotFound
+		}
+	}
+
+}
+
 func UpdateEntityData(entityType string, id int, entity map[string]interface{}) (map[string]interface{}, APIError) {
 	if entities, err := GetEntitiesData(entityType); err != nil {
 		return nil, err
@@ -48,7 +71,7 @@ func UpdateEntityData(entityType string, id int, entity map[string]interface{}) 
 					entities[i]["id"] = id
 				}
 
-				return entities[i], nil
+				return GetEntityData(entityType, id)
 			}
 		}
 		return nil, ErrEntityNotFound

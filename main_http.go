@@ -13,7 +13,8 @@ func main() {
 	r.HandleFunc("/{entityType}", controllers.GetEntities).Methods("GET")
 	r.HandleFunc("/{entityType}", controllers.CreateEntity).Methods("POST").Headers("Content-Type", "application/json")
 	r.HandleFunc("/{entityType}/{id:[0-9]+}", controllers.GetEntity).Methods("GET")
-	r.HandleFunc("/{entityType}/{id:[0-9]+}", controllers.UpdateEntity).Methods("PUT").Headers("Content-Type", "application/json")
+	r.HandleFunc("/{entityType}/{id:[0-9]+}", controllers.ReplaceEntity).Methods("PUT").Headers("Content-Type", "application/json")
+	r.HandleFunc("/{entityType}/{id:[0-9]+}", controllers.UpdateEntity).Methods("PATCH").Headers("Content-Type", "application/json")
 	r.HandleFunc("/{entityType}/{id:[0-9]+}", controllers.DeleteEntity).Methods("DELETE")
 	http.ListenAndServe("0.0.0.0:8080", r)
 }

@@ -74,6 +74,35 @@ func GetEntity(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func ReplaceEntity(w http.ResponseWriter, r *http.Request) {
+	entityType := mux.Vars(r)[PATH_PARAM_ENTITY_TYPE]
+	if id, err := strconv.Atoi(mux.Vars(r)[PATH_PARAM_ID]); err != nil {
+		http.Error(w, "Invalid Id", http.StatusBadRequest)
+		return
+	} else {
+
+		decoder := json.NewDecoder(r.Body)
+		var entity map[string]interface{}
+		if err := decoder.Decode(&entity); err != nil {
+			http.Error(w, "Invalid JSON", http.StatusBadRequest)
+			return
+		}
+
+		if replacedEntity, err := ReplaceEntityData(entityType, id, entity); err != nil {
+			statusCode, msg := err.APIError()
+			http.Error(w, msg, statusCode)
+			return
+		} else {
+			w.WriteHeader(http.StatusOK)
+			if err := json.NewEncoder(w).Encode(replacedEntity); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+		}
+
+	}
+}
+
 func UpdateEntity(w http.ResponseWriter, r *http.Request) {
 	entityType := mux.Vars(r)[PATH_PARAM_ENTITY_TYPE]
 	if id, err := strconv.Atoi(mux.Vars(r)[PATH_PARAM_ID]); err != nil {
