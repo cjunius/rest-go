@@ -1,7 +1,8 @@
-FROM golang:1.17.8-buster
-RUN mkdir /app
-ADD . /app
+FROM golang:1.17.8 as builder
 WORKDIR /app
-RUN go mod download
-RUN go build -o main .
-CMD ["/app/main"]
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -o rest-go
+
+FROM scratch
+COPY --from:builder /app/rest-go .
+ENTRYPOINT ["./rest-go"]
