@@ -88,13 +88,13 @@ func UpdateEntity(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if entity, err := UpdateEntityData(entityType, id, entity); err != nil {
+		if updatedEntity, err := UpdateEntityData(entityType, id, entity); err != nil {
 			statusCode, msg := err.APIError()
 			http.Error(w, msg, statusCode)
 			return
 		} else {
 			w.WriteHeader(http.StatusOK)
-			if err := json.NewEncoder(w).Encode(entity); err != nil {
+			if err := json.NewEncoder(w).Encode(updatedEntity); err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
