@@ -12,7 +12,9 @@ Provides a REST endpoint for any resource accepting a JSON body
 | DELETE | localhost:8080/{resource}/{id} | Removes a specific resource |
 
 Usage:
-- docker build -t rest0-go .
+- git clone https://github.com/cjunius/rest-go.git
+- cd rest-go
+- docker build -t rest-go .
 - docker run -d -p 8080:8080 rest-go:latest
 
 Alternative Usage:
