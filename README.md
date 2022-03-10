@@ -1,7 +1,7 @@
 # rest-go
 Test REST-API written in Go
 
-Provides a REST endpoint for any resource
+Provides a REST endpoint for any resource accepting a JSON body
 | HTTP METHOD | ENDPOINT | Description |
 | ----- | ----- | ----- |
 | POST | localhost:8080/{resource} | Creates a resource and adds/overwrites an id attribute |
