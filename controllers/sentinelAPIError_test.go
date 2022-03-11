@@ -6,20 +6,20 @@ import (
 )
 
 func TestErrAuth(t *testing.T) {
-	if ErrAuth.Error() != "invalid token" {
+	if ErrEntityNotFound.Error() != "entity not found" {
 		t.Errorf("Enum error message is incorrect")
 	}
 
-	if ErrAuth.Status() != http.StatusUnauthorized {
+	if ErrEntityNotFound.Status() != http.StatusNotFound {
 		t.Errorf("Enum status is incorrect")
 	}
 
-	status, msg := ErrAuth.APIError()
-	if status != http.StatusUnauthorized {
+	status, msg := ErrEntityNotFound.APIError()
+	if status != http.StatusNotFound {
 		t.Errorf("Enum status is incorrect")
 	}
 
-	if msg != "invalid token" {
+	if msg != "entity not found" {
 		t.Errorf("Enum error message is incorrect")
 	}
 }

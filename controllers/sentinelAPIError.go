@@ -20,10 +20,6 @@ func (e sentinelAPIError) APIError() (int, string) {
 }
 
 var (
-	ErrAuth               = &sentinelAPIError{status: http.StatusUnauthorized, msg: "invalid token"}
 	ErrEntityNotFound     = &sentinelAPIError{status: http.StatusNotFound, msg: "entity not found"}
 	ErrEntityTypeNotFound = &sentinelAPIError{status: http.StatusNotFound, msg: "entity type not found"}
-	ErrDuplicate          = &sentinelAPIError{status: http.StatusBadRequest, msg: "duplicate"}
-	ErrInvalidJSON        = &sentinelAPIError{status: http.StatusBadRequest, msg: "invalid json"}
-	ErrInvalidId          = &sentinelAPIError{status: http.StatusBadRequest, msg: "invalid id"}
 )
