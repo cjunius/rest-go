@@ -20,6 +20,3 @@ Usage:
 Alternative Usage:
 - docker pull cjunius/rest-go:main
 - docker run --name rest-go -d -p 8080:8080 cjunius/rest-go:main
-
-
-
